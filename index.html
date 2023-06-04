@@ -1,12 +1,411 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio</title>
+    <title>TaeWan's Personal Blog</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog">
+    <meta name="author" content="TaeWan Noh"> 
+    <meta name="title" content="TaeWan's Personal Blog">
+    <!-- navigation -->
+    <style>
+        body {
+            margin: 0%;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            background-color: greenyellow;
+            padding: 0px;
+        }
+
+        .nav-brand {
+            margin-right: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-right: 10px;
+        }
+        /* 모바일 화면에서 네비게이션 메뉴를 햄버거 아이콘으로 표시 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                left: 0;
+                background-color: greenyellow;
+                top:0%;
+                padding: 10px;
+                width: 80%;
+                z-index: 999;
+            }
+            
+            .nav-menu.active li {
+                margin: 5px 0;
+            }
+            
+            .nav-toggle {
+                display: block;
+                position: relative;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+            }
+            
+            .nav-toggle span {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background-color: black;
+                transform-origin: center;
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .nav-toggle span:nth-child(1) {
+                transform: translateY(-50%);
+            }
+            
+            .nav-toggle span:nth-child(2) {
+                transform: translateY(-50%);
+            }
+            
+            .nav-toggle span:nth-child(3) {
+                transform: translateY(-50%);
+            }
+            
+            .nav-toggle.active span:nth-child(1) {
+                transform: translateY(-50%) rotate(45deg);
+            }
+            
+            .nav-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .nav-toggle.active span:nth-child(3) {
+                transform: translateY(-50%) rotate(-45deg);
+            }
+
+            #papet-types {
+            list-style: none;
+            float: left; padding: 5px;
+        }
+        }
+    </style>
+    <!-- homeSection -->
+    <style>
+        #homeSection {
+            width: 75%;
+        }
+        #profile {
+            float: left;
+            width: 50%;
+            margin-left: 12.5%
+        }
+
+        #introduce {
+            margin-left: 0%;
+            float: right;
+            width: 100%;
+        }
+
+        #hobbySection {
+            width: 75%; margin-left: 12.5%;
+        }
+
+        #portfolioSection {
+            width: 75%; margin-left: 12.5%;
+        }
+
+        @media (max-width: 768px) {
+            #homeSetion {
+                width: 100%;
+            }
+
+            #profile {
+                float:center;
+                width: 132.5%;
+                margin-left: 0%
+            }
+
+            #Introduce {
+                margin-left: 12.5%;
+                float: bottom;
+                width: 100%;
+            }
+        
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+
+        // 초기 로딩 시 첫 번째 섹션 보여주기
+            showSection('home');
+            
+        // 네비게이션 메뉴 항목 클릭 이벤트 처리
+            $('.nav li').on('click', function() {
+                var id = $(this).attr('id');
+                $('li').css('font-weight','normal')
+                showSection(id);
+            });
+
+        // 모바일 화면에서 아이콘 클릭 이벤트 처리
+            $('.nav-toggle').on('click', function() {
+                $('.nav-menu').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+
+        // 해당 섹션 보여주는 함수
+        function showSection(id) {
+            $('.section').hide(); // 모든 섹션 숨기기
+            $('#' + id + 'Section').show(); // 선택한 섹션 보여주기
+            $('#' + id).css('font-weight','bold')//선택한 섹션의 글자를 굵게 바꿔주기
+        }
+    </script>
+
+    <style>
+    #paper-types {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .page-item {
+        list-style: none;
+        margin-right: 5px;
+    }
+
+    .page-link {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #f2f2f2;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .page-link:hover {
+        background-color: #ddd;
+    }
+
+    .page-item.active .page-link {
+         background-color: greenyellow;
+        color: #fff;
+    }
+
+    .page-item.active .page-link:hover {
+        background-color: greenyellow;
+    }
+        /* Responsive Styles */
+        @media only screen and (max-width: 767px) {
+            .table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table td {
+                white-space: nowrap;
+            }
+
+            .pagination {
+                float: flex;
+                width: 100%;
+                font-size: 50%;
+            }
+        }
+    </style>
+
+    <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    function filterPortfolio(paperType) {
+        // Reset all list items to remove the "active" class
+        $('#paper-types li').removeClass('active');
+        
+        // Add "active" class to the clicked list item
+        $('#paper-types li:contains(' + paperType.charAt(0).toUpperCase() + paperType.slice(1) + ')').addClass('active');
+        
+        // Show/hide portfolio items based on the selected type
+        if (paperType === 'all') {
+            $('.portfolio').show();
+        } else {
+            $('.portfolio').hide();
+            $('.portfolio[paper-type="' + paperType + '"]').show();
+        }
+    }
+  </script>
 </head>
+
 <body>
-  <p>Hello, World!</p>
+    <div class="nav">
+        <h1 class="nav-brand">TaeWan Noh</h1>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-menu">        
+            <li id="home">Home</li>
+            <li id="hobby">Hobby</li>
+            <li id="portfolio">Portfolio</li>
+        </ul>
+    </div>
+    <div class="section" id="homeSection">    
+        <img src="./image/profile.jpg" id="profile">
+        <div id="Introduce">
+            <h5>Introduce</h5>
+            <p>I am a student at Kangwon National University. I am interested in Game Design during the game development process. 
+            My goal is make a game as a Game Designer that is loved for a long time like League Of Legends.  
+            I have three hobbies. The first is playing games, the second is listening to music, and the third is watching soccer.</p>    
+        </div>
+</div>
+    <div class="section" id="hobbySection">
+        <h2>Hobby</h2>
+        <h4>Game</h4>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="hobby">
+                        <a href="https://store.steampowered.com/search/?developer=Sports%20Interactive">
+                            <span class="text-primary">"My Favorite Game FootballManager(Steam) Official Site"</span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hobby">
+                        <a href="https://www.leagueoflegends.com/ko-kr/">
+                            <div class="text-primary">"My Favorite Game League Of Legends(Riot Games) Official Site"</div></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Music</h4>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="hobby">
+                        <a href="https://www.youtube.com/@Beenzino_official">
+                            <span>"My Favorite Artist Beenzino Official Youtube Channer"</span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hobby">
+                        <a href="https://www.youtube.com/@esens9673">
+                            <div class="text-primary">"My Favorite Artist E SENS Official Youtube Channer"</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hobby">
+                        <a href="https://www.youtube.com/@naked_BIBI">
+                            <div class="text-primary">"My Favorite Artist BiBi Official Youtube Channer"</div></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Football</h4>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="hobby">
+                        <a href="https://www.chelseafc.com/en">
+                            <div class="text-primary">"My Favorite Football Team Chelsea Official Site"</div></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="section" id="portfolioSection">
+        <h2>Portfolio</h2>
+        <h4>Type</h4>
+        <nav aria-label="...">
+            <ul class="pagination" id="paper-types">
+                <li class="page-item active"><a class="page-link" href="#" onclick="filterPortfolio('all')">All</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="filterPortfolio('development')">Development</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="filterPortfolio('design')">Design</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="filterPortfolio('analysis')">Analysis</a></li>
+            </ul>
+        </nav>
+        <h5>2025</h5>
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td class="portfolio" paper-type="development">
+                        <a href="#" target="_blank">개발 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="portfolio" paper-type="design">
+                        <a href="#" target="_blank">기획 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="portfolio" paper-type="analysis">
+                        <a href="#" target="_blank">분석 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>2024</h5>
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td class="portfolio" paper-type="development">
+                        <a href="#" target="_blank">개발 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="portfolio" paper-type="design">
+                        <a href="#" target="_blank">기획 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="portfolio" paper-type="analysis">
+                        <a href="#" target="_blank">분석 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>2023</h5>
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td class="portfolio" paper-type="development">
+                        <a href="#" target="_blank">개발 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="portfolio" paper-type="design">
+                        <a href="#" target="_blank">기획 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="portfolio" paper-type="analysis">
+                        <a href="#" target="_blank">분석 관련 활동 후 추가 예정</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>   
 </body>
 </html>
+
